@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'movies', pathMatch: 'full' },
@@ -7,7 +8,11 @@ const routes: Routes = [
   { path: 'movies/:id', loadChildren: './pages/movie-details/movie-details.module#MovieDetailsPageModule' },
   { path: 'login', loadChildren: './pages/public/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './pages/public/register/register.module#RegisterPageModule' },
-  { path: 'dashboard', loadChildren: './pages/membres/dashboard/dashboard.module#DashboardPageModule' },
+  {
+    path: 'members',
+    canActivate: [AuthGuardService],
+    loadChildren: './pages/membres/member-routing.module#MemberRoutingModule'
+  }
 ];
 
 @NgModule({
